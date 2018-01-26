@@ -43,9 +43,9 @@
     <!-- Bootstrap core CSS -->
    <!-- <link href="${css}/bootstrap.min.css" rel="stylesheet"> -->
     <!-- Bootstrap darkly CSS -->
-<!--  <link href="${css}/bootstrap-darkly-theme.css" rel="stylesheet"> -->
-  	<!-- <link href="${css}/bootstrap-sketchy-theme.css" rel="stylesheet"> --> 
-  	 <link href="${css}/bootstrap-solar-theme.css" rel="stylesheet">  
+  <link href="${css}/bootstrap-darkly-theme.css" rel="stylesheet">
+  <!-- 	 <link href="${css}/bootstrap-sketchy-theme.css" rel="stylesheet"> --> 
+  	<!--   <link href="${css}/bootstrap-solar-theme.css" rel="stylesheet">-->  
   
    
 
@@ -78,6 +78,13 @@
    <c:if test="${userClickContact == true }">
    <%@include file="contact.jsp" %>
    </c:if>
+   
+   <!-- loadig the product list page after user click  -->
+   <c:if test="${userClickAllProducts == true  or userClickCategoryProducts == true}">
+   <%@include file="listProducts.jsp" %>
+   </c:if>
+   
+   
    
    </div>
    
