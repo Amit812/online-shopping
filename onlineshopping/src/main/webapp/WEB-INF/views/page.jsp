@@ -9,7 +9,7 @@
    <spring:url var="images" value="/resources/images" />
    
    
-   <c:set var="contextRoot" value="${pageContext.request.contextPath }" />
+   <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
     
 <%-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -28,30 +28,34 @@
 
   <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+		
 
     <title>Online Shopping - ${title}</title>
 	
 	<script>
 		window.menu = '${title}';
+		
+		window.contextRoot = '${contextRoot}'
 	</script>
 	
 	
     <!-- Bootstrap core CSS -->
-   <!-- <link href="${css}/bootstrap.min.css" rel="stylesheet"> -->
-    <!-- Bootstrap darkly CSS -->
-  <link href="${css}/bootstrap-darkly-theme.css" rel="stylesheet">
-  <!-- 	 <link href="${css}/bootstrap-sketchy-theme.css" rel="stylesheet"> --> 
-  	<!--   <link href="${css}/bootstrap-solar-theme.css" rel="stylesheet">-->  
-  
-   
-
+     	  <link href="${css}/bootstrap.min.css" rel="stylesheet"> 
+     	 
+    
+    <!-- Bootstrap Theme CSS -->
+	  	<!--  <link href="${css}/bootstrap-darkly-theme.css" rel="stylesheet">  -->
+		 <!-- <link href="${css}/bootstrap-sketchy-theme.css" rel="stylesheet"> -->
+	  	 <!--<link href="${css}/bootstrap-solar-theme.css" rel="stylesheet">-->
+		  <link href="${css}/bootstrap-readable-theme.css" rel="stylesheet"> 
+	  	
+	  	
+	<!-- Bootstrap Data table Theme  -->  
+		<link href="${css}/dataTables.bootstrap.css" rel="stylesheet">
+	  
     <!-- Custom styles for this template -->
-    <link href="${css}/myapp.css" rel="stylesheet">
-
+		<link href="${css}/myapp.css" rel="stylesheet">
+	
   </head>
 
   <body>
@@ -64,37 +68,52 @@
    
    <!-- Page conteContent -->
    <div class="content">
-   <!-- loading the home content  -->
-   <c:if test="${userClickHome == true }"  >
-   <%@include file="home.jsp"   %>
-   </c:if>
    
-   <!-- loading the about us page after click  -->
-   <c:if test="${userClickAbout == true }">
-   <%@include file="about.jsp" %>
-   </c:if>
+	   <!-- loading the home content  -->
+	   <c:if test="${userClickHome == true }"  >
+	   <%@include file="home.jsp"   %>
+	   </c:if>
    
-   <!-- loadig the contact us page after user click  -->
-   <c:if test="${userClickContact == true }">
-   <%@include file="contact.jsp" %>
-   </c:if>
-   
-   <!-- loadig the product list page after user click  -->
-   <c:if test="${userClickAllProducts == true  or userClickCategoryProducts == true}">
-   <%@include file="listProducts.jsp" %>
-   </c:if>
-   
-   
+	   <!-- loading the about us page after click  -->
+	   <c:if test="${userClickAbout == true }">
+	   <%@include file="about.jsp" %>
+	   </c:if>
+	   
+	   <!-- loadig the contact us page after user click  -->
+	   <c:if test="${userClickContact == true }">
+	   <%@include file="contact.jsp" %>
+	   </c:if>
+	   
+	   <!-- loadig the product list page after user click  -->
+	   <c:if test="${userClickAllProducts == true  or userClickCategoryProducts == true}">
+	   <%@include file="listProducts.jsp" %>
+	   </c:if>
+	   
+	   <!-- load only when user click single products -->
+	   <c:if test="${userClickShowProduct == true}" >
+	  	<%@include file="singleProduct.jsp" %>
+	   </c:if>
    
    </div>
    
-    <!-- footer comes here    -->
+    <!-- footer comes here order is important   -->
     <%@include file="./shared/footer.jsp" %>
-    <!-- Bootstrap core JavaScript -->
-    <script src="${js}/jquery.js"></script>
-    <script src="${js}/bootstrap.min.js"></script>
-    <!-- self code javascript -->
-	<script src="${js}/myapp.js"></script>
+    
+    <!-- jQuery -->
+		<script src="${js}/jquery.js"></script>
+    
+    <!-- Bootstrap Core JavaScript -->
+		<script src="${js}/bootstrap.min.js"></script>
+    
+   	<!-- DataTable Plugin -->
+		<script src="${js}/jquery.dataTables.js"></script>
+	
+	<!-- Datatable Bootstrap script -->
+		<script src="${js}/dataTables.bootstrap.js"></script>
+    
+    <!-- Self coded javascript -->
+		<script src="${js}/myapp.js"></script>
+	
 	
 	</div>
 	

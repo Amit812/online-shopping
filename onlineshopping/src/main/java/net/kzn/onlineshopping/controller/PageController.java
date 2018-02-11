@@ -1,73 +1,40 @@
 package net.kzn.onlineshopping.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import net.kzn.onlineshopping.exception.ProductNotFoundException;
 import net.kzn.shoppingbackend.dao.CategoryDAO;
+import net.kzn.shoppingbackend.dao.ProductDAO;
 import net.kzn.shoppingbackend.dto.Category;
+import net.kzn.shoppingbackend.dto.Product;
 
 @Controller
 public class PageController {
 	
-	/*@RequestMapping(value = {"/","/home","/index"})
-	public ModelAndView index(){
-		
-		ModelAndView mv = new ModelAndView("page");
-		mv.addObject("greeting", "welcome to spring web mvc ");
-		
-		return mv;
-		
-	}
-	*/
-	
-	/*@RequestMapping(value="/test")
-	//public ModelAndView UrlValueTest(@RequestParam("greeting") String greeting){
-	public ModelAndView UrlValueTest(@RequestParam(value="greeting",required=false) String greeting){
-		
-		if(greeting==null){
-			greeting="Hello Amina you are default...";
-		}
-		
-		ModelAndView mv = new ModelAndView("page");
-		mv.addObject("greeting",greeting);
-		
-		return mv;
-				
-	}
-	
-	*/
-	
-	
-	/*@RequestMapping(value="/test/{greeting}")
-	public ModelAndView UrlValueTest(@PathVariable(value="greeting") String greeting){
-		
-		if(greeting==null){
-			greeting="Hello Amina you are default...";
-		}
-		
-		ModelAndView mv = new ModelAndView("page");
-		mv.addObject("greeting",greeting);
-		
-		return mv;
-				
-	}
-	*/
-	
+	private static final Logger logger = LoggerFactory.getLogger(PageController.class);
 	
 	@Autowired
 	private CategoryDAO categoryDAO;
 	
-	
-	
+	@Autowired
+	private ProductDAO productDAO;
+		
 	@RequestMapping(value = {"/","/home","/index"})
 	public ModelAndView index(){
 		
 		ModelAndView mv = new ModelAndView("page");
 		mv.addObject("title", "Home");	
 		mv.addObject("userClickHome",true);
+		
+		logger.info("Inside PageController index method - INFO");
+		logger.debug("Inside PageController index method - DEBUG");
+
 		
 		//passing the list of categories
 		mv.addObject("categories",categoryDAO.list());
@@ -135,7 +102,30 @@ public class PageController {
 		
 	}
 	
-	
-	
+	/*
+	 * Viewing single product
+	 */
+	@RequestMapping(value =  "/show/{id}/product")
+	public ModelAndView showSingleProduct(@PathVariable int id) throws ProductNotFoundException {
+		
+		ModelAndView mv = new ModelAndView("page");
+		
+		Product product = productDAO.get(id);
+		
+		if(product==null) throw new ProductNotFoundException();
+		
+		//update the view count
+		product.setViews(product.getViews()+ 1);
+		productDAO.update(product);
+		//--------------------------------------
+		
+		mv.addObject("title",product.getName());
+		mv.addObject("product",product);
+		
+		mv.addObject("userClickShowProduct", true);
+		
+		return mv;
+		
+	}
 	
 }

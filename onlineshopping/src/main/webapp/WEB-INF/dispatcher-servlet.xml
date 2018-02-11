@@ -11,8 +11,15 @@
    http://www.springframework.org/schema/mvc/spring-mvc.xsd 							   
    ">
    
-   <context:component-scan base-package="net.kzn.onlineshopping.controller" />
-   <context:component-scan base-package="net.kzn.shoppingbackend.daoimpl" />
+   <!-- Scan front end packages -->
+   <!-- <context:component-scan base-package="net.kzn.onlineshopping.controller" /> -->
+   <context:component-scan base-package="net.kzn.onlineshopping" /> 
+   
+   <!-- Scan backend end packages -->
+   <!-- change due to not able to scan beans dependency   -->
+   <!--  <context:component-scan base-package="net.kzn.shoppingbackend.daoimpl" /> -->
+   <context:component-scan base-package="net.kzn.shoppingbackend" />
+   
    
    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
 	   <property name="prefix" value="/WEB-INF/views/" />
